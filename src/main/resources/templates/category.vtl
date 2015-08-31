@@ -7,7 +7,7 @@
       <li>$task.getDescription()
         <form action="/tasks/$task.getId()/complete" method="post">
             <label>
-              <input id="checked_id"  type="hidden" name="checked_id" value="$task.getId()">
+              <input id="category_id" name="category_id" type="hidden" value="$category.getId()">
             </label>
             <button type="submit" class="btn btn-info">Check as Complete</button>
         </form>

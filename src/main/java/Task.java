@@ -7,21 +7,21 @@ public class Task {
   private String description;
   private boolean completed;
 
+  public String getDescription() {
+    return description;
+  }
 
   public int getId() {
     return id;
   }
 
-  public boolean getCompleted() {
+  public boolean isCompleted() {
     return completed;
-  }
-
-  public String getDescription() {
-    return description;
   }
 
   public Task(String description) {
     this.description = description;
+    completed = false;
   }
 
   @Override
@@ -108,7 +108,7 @@ public class Task {
 
   public void markCompleted() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE tasks SET completed = true WHERE task_id = :taskId";
+      String sql = "UPDATE tasks SET completed = true WHERE id = :taskId";
         con.createQuery(sql)
         .addParameter("taskId", this.getId())
         .executeUpdate();
@@ -117,16 +117,14 @@ public class Task {
   }
 
 
-
-
-  // public void update(String description) {
-  //   try(Connection con = DB.sql2o.open()) {
-  //     String sql = "UPDATE tasks SET description = :description WHERE id = :id";
-  //     con.createQuery(sql)
-  //       .addParameter("description", description)
-  //       .addParameter("id", id)
-  //       .executeUpdate();
-  //   }
-  // }
+  public void update(String description) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE tasks SET description = :description WHERE id = :id";
+      con.createQuery(sql)
+        .addParameter("description", description)
+        .addParameter("id", id)
+        .executeUpdate();
+    }
+  }
 
 }

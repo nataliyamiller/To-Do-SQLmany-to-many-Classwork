@@ -54,6 +54,16 @@ public class App {
         return new ModelAndView(model, layout);
       }, new VelocityTemplateEngine());
 
+      get("/tasks/:id/edit", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Task task = Task.find(Integer.parseInt(request.params(":id")));
+      // Category category = Category.find(Integer.parseInt(request.params(":category_id")));
+      model.put("task", task);
+      // model.put("category", category);
+      model.put("template", "templates/task-update-form.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
       post("/tasks", (request, response) -> {
         HashMap<String, Object> model = new HashMap<String, Object>();
         String description = request.queryParams("description");
@@ -92,19 +102,45 @@ public class App {
         return null;
       });
 
-      //attempt "completed-route for tasks"
 
       post("/tasks/:taskId/complete", (request, response) -> {
-        int taskId = Integer.parseInt(request.queryParams("task_id"));
-        int checkedId = Integer.parseInt(request.queryParams("checked_id"));
+        // int taskId = Integer.parseInt(request.queryParams("task_id"));
+        int checkedId = Integer.parseInt(request.params(":taskId"));
         int categoryId = Integer.parseInt(request.queryParams("category_id"));
         Category category = Category.find(categoryId);
-        Task task = Task.find(taskId);
+        Task task = Task.find(checkedId);
         task.markCompleted();
         //category.addTask(task);
         response.redirect("/categories/" + categoryId);
         return null;
       });
+
+
+
+      //Still working on the delete/update routes below
+
+    //   post("/tasks/:id/edit", (request, response) -> {
+    //   HashMap<String, Object> model = new HashMap<String, Object>();
+    //   Task task = Task.find(Integer.parseInt(request.params("task_id")));
+    //   Category category = Category.find(Integer.parseInt(request.queryParams("category_id")));
+    //   String description = request.queryParams("description");
+    //   task.update(description);
+    //   response.redirect("/categories/" + category.getId() + "/tasks");
+    //   return null;
+    // });
+    //
+    //
+    //   post("/tasks/:id/delete", (request, response) -> {
+    //   HashMap<String, Object> model = new HashMap<String, Object>();
+    //   int taskId = Integer.parseInt(request.queryParams("task_id"));
+    //   int categoryId = Integer.parseInt(request.queryParams("category_id"));
+    //   Category category = Category.find(categoryId);
+    //   Task task = Task.find(taskId);
+    //   task.delete();
+    //   response.redirect("/categories/" + categoryId);
+    //   return null;
+    // });
+
 
 
  }//end of main
