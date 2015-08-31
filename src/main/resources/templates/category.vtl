@@ -3,7 +3,12 @@
 #if($category.getTasks())
   <p>Here are the tasks for this category:</p>
   <ul>
+  #end
     #foreach($task in $category.getTasks())
+
+      #if($task.isCompleted() == true)
+      <li><span class="glyphicon glyphicon-ok"> $task.getDescription() </span></li>
+      #else
       <li>$task.getDescription()
         <form action="/tasks/$task.getId()/complete" method="post">
             <label>
