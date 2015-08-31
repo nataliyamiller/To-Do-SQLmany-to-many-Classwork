@@ -12,6 +12,8 @@ public class Task {
   private String dueDate;
   private String createdAt;
 
+
+
   public String getDescription() {
     return description;
   }
@@ -29,8 +31,13 @@ public class Task {
     return createdAt;
   }
 
-  public String getDueDate() {
-    return dueDate;
+  //Need to work on it, can be String dueDate = "/" + date + "/" + month + "/" + year;
+  // public String setDueDate(int date, int month, int year) {
+  //   Calendar cal = Calendar.getInstance();
+  //   Date date = new Date(date, month, year);
+  //   SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+  //   dueDate = dateFormat.format(cal.getTime());
+  //   return dueDate;
   }
 
   public boolean isCompleted() {
