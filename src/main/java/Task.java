@@ -1,11 +1,16 @@
 import java.util.List;
 import org.sql2o.*;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Task {
   private int id;
   private String description;
   private boolean completed;
+  private String dueDate;
+  private String createdAt;
 
   public String getDescription() {
     return description;
@@ -15,14 +20,29 @@ public class Task {
     return id;
   }
 
+  public String createdAt() {
+    // Date date = new Date();
+    // createdAt = String.format("%1$s %2$tB %2$td, %2$tY", "Date created:", date);
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    Date date = new Date();
+    createdAt = dateFormat.format(date);
+    return createdAt;
+  }
+
+  public String getDueDate() {
+    return dueDate;
+  }
+
   public boolean isCompleted() {
     return completed;
   }
 
   public Task(String description) {
     this.description = description;
+    createdAt = createdAt();
     completed = false;
   }
+
 
   @Override
   public boolean equals(Object otherTask) {

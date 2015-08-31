@@ -7,7 +7,7 @@
     #foreach($task in $category.getTasks())
 
       #if($task.isCompleted() == true)
-      <li><span class="glyphicon glyphicon-ok">$task.getDescription()</span></li>
+      <li><span class="glyphicon glyphicon-ok"> $task.getDescription() Created at: $task.createdAt()</span></li>
       #else
       <li>$task.getDescription()
         <form action="/tasks/$task.getId()/complete" method="post">
